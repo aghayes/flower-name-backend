@@ -3,3 +3,4 @@ Flask-RESTful==0.3.9
 jellyfish==0.8.9
 gunicorn==20.1.0
 pandas==1.2.4
+phonetics==1.0.5
