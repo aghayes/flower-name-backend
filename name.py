@@ -7,7 +7,7 @@ from flask_restful import Resource, Api
 
 app = Flask("__name__")
 api = Api(app)
-api.species = pd.read_csv("encoded_names.csv")
+api.species = pd.read_csv("species_names.csv")
 @app.after_request
 def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
@@ -20,7 +20,7 @@ class dmetaphone(Resource):
 		name = request.args["name"]
 		encoded = phonetics.dmetaphone(name)[0]
 		row = api.species.loc[api.species["dmetaphone"].map(lambda x: jellyfish.jaro_distance(x, encoded)).idxmax()]
-		response = {"name": row["scientificName"], "url": row["scientificNameID"]}
+		response = {"name": row["scientificName"], "url": row["url"]}
 		return response
 
 api.add_resource(dmetaphone, "/")
